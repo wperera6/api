@@ -1,7 +1,9 @@
-class Api::PostsController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token
+class Api::PostsController < Api::ApiController
 
+    skip_before_filter :verify_authenticity_token
+    protect_from_forgery with: :null_session
+  
   def index
     render json: Post.all
   end
@@ -52,5 +54,4 @@ private
     def post_params
       params.require("posts").permit("title")
     end 
-
 end
